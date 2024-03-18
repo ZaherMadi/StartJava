@@ -22,10 +22,8 @@ public class Exercice1 {
         // out, tout simplement, pour lire une String:
         //String s = sc.next();
 
-        System.out.printf("Merci mon gars, \n et maintenant voici les chifres tapés! \n ------>  " );
-        System.out.print(a);
-        System.out.printf("\n & \n ----------->");
-        System.out.print(b);
+        System.out.printf("Merci mon gars, \n et maintenant voici les chifres tapés! \n ------>  "+ a + "\n & \n" + "-----------> " + b);
+
 
 
 
