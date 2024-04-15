@@ -87,7 +87,7 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-        <Label alignment="CENTER" layoutX="14.0" layoutY="335.0" prefHeight="25.0" prefWidth="109.0" style="&#10;" text="Nouvel recette ajoutée" textAlignment="CENTER" wrapText="false">
+        <Label id="Title" alignment="CENTER" layoutX="14.0" layoutY="335.0" prefHeight="25.0" prefWidth="109.0" style="&#10;" text="Nouvel recette ajoutée" textAlignment="CENTER" wrapText="false">
           <font>
             <Font size="10.0" />
           </font>
