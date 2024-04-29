@@ -1,8 +1,8 @@
 package com.example.testjfx.model;
 import javax.persistence.Id;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import org.hibernate.annotations.Entity;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GeneratorType;
 
