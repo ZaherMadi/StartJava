@@ -9,7 +9,9 @@ import javafx.scene.control.*;
 import java.io.InputStream;
 import java.util.Properties;
 import java.io.IOException;
-
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 public class HelloController {
     public Label status;
     public TextArea preview;
@@ -21,6 +23,17 @@ public class HelloController {
     public Button delete;
     @FXML
     private Label welcomeText;
+    @FXML
+    private TextField title;
+
+    @FXML
+    private TextArea ingredients;
+
+    @FXML
+    private TextArea instructions;
+
+    @FXML
+    private TextField preparation;
     @FXML
     public void initialize() {
 
@@ -34,6 +47,19 @@ public class HelloController {
                 recette2,
                 recette3
         );
+
+        recettes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Recette>() {
+            @Override
+            public void changed(ObservableValue<? extends Recette> observable, Recette oldValue, Recette newValue) {
+                // Met à jour les champs avec les détails de la recette sélectionnée
+                if (newValue != null) {
+
+                    preview.setText(newValue.getPreview());
+                    delete.setDisable(false);
+                    edit.setDisable(false);
+                }
+            }
+        });
 
 
         recettes.setItems(items);
@@ -76,9 +102,87 @@ public class HelloController {
 
 
     public void onAddButtonClick(ActionEvent actionEvent) {
+        String newTitle = title.getText();
+        String newIngredients = ingredients.getText();
+        String newInstructions = instructions.getText();
+        String newPreparation = preparation.getText();
+
+        // Vérifie si tous les champs sont remplis
+        if (newTitle.isEmpty() || newIngredients.isEmpty() || newInstructions.isEmpty() || newPreparation.isEmpty()) {
+            // Affiche un message d'erreur si au moins un champ est vide
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill in all fields.");
+            alert.showAndWait();
+            return;
+        }
+        // Crée une nouvelle recette avec les valeurs des champs
+        Recette newRecipe = new Recette(newTitle, newIngredients, newInstructions, newPreparation);
+
+        // Ajoute la nouvelle recette à la liste des recettes
+        recettes.getItems().add(newRecipe);
+
+        // Affiche un message de succès
+        status.setText("Recipe added: " + newRecipe.getTitre());
+
+        // Réinitialise les champs à vide pour permettre l'ajout d'une nouvelle recette
+        title.clear();
+        ingredients.clear();
+        instructions.clear();
+        preparation.clear();
     }
 
     public void onEditButtonClick(ActionEvent actionEvent) {
+        // Récupère la recette sélectionnée
+        Recette selectedRecipe = recettes.getSelectionModel().getSelectedItem();
+
+        // Vérifie si une recette est sélectionnée
+        if (selectedRecipe == null) {
+            // Affiche un message d'erreur si aucune recette n'est sélectionnée
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a recipe to edit.");
+            alert.showAndWait();
+            return;
+        }
+        String newTitle = title.getText();
+        String newIngredients = ingredients.getText();
+        String newInstructions = instructions.getText();
+        String newPreparation = preparation.getText();
+
+        // Vérifie si tous les champs sont remplis
+        if (newTitle.isEmpty() || newIngredients.isEmpty() || newInstructions.isEmpty() || newPreparation.isEmpty()) {
+            // Affiche un message d'erreur si au moins un champ est vide
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill in all fields.");
+            alert.showAndWait();
+            return;
+        }
+
+
+        // Met à jour les valeurs de la recette sélectionnée
+        selectedRecipe.setTitre(newTitle);
+        selectedRecipe.setIngredients(newIngredients);
+        selectedRecipe.setInstructions(newInstructions);
+        selectedRecipe.setPreparation_time(newPreparation);
+
+        // Rafraîchit la vue de la liste des recettes pour refléter les changements
+        recettes.refresh();
+
+        // Affiche un message de succès
+        status.setText("Recipe edited: " + selectedRecipe.getTitre());
+
+        // Réinitialise les champs à vide pour permettre l'ajout d'une nouvelle recette
+        title.clear();
+        ingredients.clear();
+        instructions.clear();
+        preparation.clear();
+
+
     }
 
     public void onDeleteButtonClick(ActionEvent actionEvent) {
