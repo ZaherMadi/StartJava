@@ -1,18 +1,33 @@
-package com.example.testjfx;
+package com.example.testjfx.model;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import org.hibernate.annotations.Entity;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GeneratorType;
 
+@Entity
 public class Recette {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String titre;
     private String ingredients;
     private String instructions;
     private String preparation_time;
-
-    public Recette(String titre, String ingredients, String instructions, String preparation_time) {
+public Recette(String titre, String ingredients, String instructions, String preparation_time) {
         this.titre = titre;
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.preparation_time = preparation_time;
     }
 
+    public Recette() {
+        this.titre = "Recette";
+        this.ingredients = "Un grédient";
+        this.instructions =  "Instructions";
+        this.preparation_time = "30 min";
+    }
 
 
     // Getters/setters

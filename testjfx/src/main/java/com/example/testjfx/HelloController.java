@@ -1,10 +1,14 @@
 package com.example.testjfx;
 
+import com.example.testjfx.model.Recette;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import java.io.InputStream;
+import java.util.Properties;
+import java.io.IOException;
 
 public class HelloController {
     public Label status;
@@ -47,10 +51,24 @@ public class HelloController {
 
     @FXML
     public void displayHelp(ActionEvent actionEvent) {
+        Properties properties = new Properties();
+        try (InputStream input = getClass().getResourceAsStream("config.properties")) {
+            if (input == null) {
+                throw new IOException("Unable to find config.properties file");
+            }
+            properties.load(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        String version = properties.getProperty("application.version", "Unknown");
+        String author = properties.getProperty("application.author", "Unknown");
+        String description = properties.getProperty("application.description", "Description not available");
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About");
         alert.setHeaderText(null);
-        alert.setContentText("Version 5.1\nAuthor: Zaher Madi");
+        alert.setContentText("Version: " + version + "\nAuthor: " + author + "\nDescription: " + description);
         alert.showAndWait();
     }
     public void exit(ActionEvent actionEvent) {
