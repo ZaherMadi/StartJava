@@ -14,13 +14,13 @@ public class LivresController {
 
     public Label status;
     public ImageView imageView;
-    public Label quatriemecouverture;
+    public TextArea quatriemecouverture;
     public ListView<Livre> livresListView;
-    public Label titre;
-    public Label isbn;
-    public Label auteur;
-    public Label annee;
-    public Label pages;
+    public TextField titre;
+    public TextField isbn;
+    public TextField auteur;
+    public TextField annee;
+    public TextField pages;
     public Button addBtn;
     public Button editBtn;
     public Button deleteBtn;
