@@ -3,60 +3,74 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.testjfx.LivresController"
-            prefWidth="800" prefHeight="600">
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testjfx.LivresController"
+            prefWidth="800" prefHeight="600"
+            minHeight="400" minWidth="600"
+            maxHeight="800" maxWidth="1000">
 
     <top>
-        <VBox spacing="10" alignment="CENTER">
-            <Label text="Gestion des Livres" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+        <VBox alignment="CENTER" spacing="10">
+            <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Gestion des Livres" />
         </VBox>
     </top>
 
     <center>
-        <HBox spacing="20" alignment="CENTER">
+        <HBox alignment="CENTER" spacing="20">
+            <!-- Liste des livres -->
+            <ListView fx:id="livresListView" prefHeight="400" prefWidth="400" />
             <!-- Affichage des détails du livre -->
-            <VBox spacing="10" alignment="CENTER">
-                <ImageView fx:id="imageView" fitWidth="200" fitHeight="300"/>
+            <VBox alignment="CENTER" spacing="10">
+                <ImageView fx:id="imageView" fitHeight="300" fitWidth="200" />
                 <VBox spacing="5">
-                    <Label text="Titre :" style="-fx-font-weight: bold;"/>
-                    <Label fx:id="titre"/>
+                    <Label style="-fx-font-weight: bold;" text="Titre :" />
+                    <Label fx:id="titre" />
 
-                    <Label text="ISBN :" style="-fx-font-weight: bold;"/>
-                    <Label fx:id="isbn"/>
+                    <Label style="-fx-font-weight: bold;" text="ISBN :" />
+                    <Label fx:id="isbn" />
 
-                    <Label text="Auteur :" style="-fx-font-weight: bold;"/>
-                    <Label fx:id="auteur"/>
+                    <Label style="-fx-font-weight: bold;" text="Auteur :" />
+                    <Label fx:id="auteur" />
 
-                    <Label text="Année de publication :" style="-fx-font-weight: bold;"/>
-                    <Label fx:id="annee"/>
+                    <Label style="-fx-font-weight: bold;" text="Année de publication :" />
+                    <Label fx:id="annee" />
 
-                    <Label text="Nombre de pages :" style="-fx-font-weight: bold;"/>
-                    <Label fx:id="pages"/>
+                    <Label style="-fx-font-weight: bold;" text="Nombre de pages :" />
+                    <Label fx:id="pages" />
 
-                    <Label text="Quatrième de couverture :" style="-fx-font-weight: bold;"/>
-                    <Label fx:id="quatriemecouverture" wrapText="true"/>
+                    <Label style="-fx-font-weight: bold;" text="Quatrième de couverture :" />
+                    <Label fx:id="quatriemecouverture" wrapText="true" />
                 </VBox>
             </VBox>
-
-            <!-- Liste des livres -->
-            <ListView fx:id="livresListView" prefWidth="400" prefHeight="400"/>
+            <!-- Ajout de Region pour la responsivité -->
+            <Region HBox.hgrow="ALWAYS"/>
         </HBox>
     </center>
 
+    <!-- Ajout de VBox à gauche et à droite -->
+    <left>
+        <VBox alignment="CENTER" spacing="10">
+            <!-- Ajoutez ici les éléments que vous souhaitez afficher à gauche -->
+        </VBox>
+    </left>
+
+    <right>
+        <VBox alignment="CENTER" spacing="10">
+            <!-- Ajoutez ici les éléments que vous souhaitez afficher à droite -->
+        </VBox>
+    </right>
+
     <!-- Boutons CRUD -->
     <bottom>
-        <HBox spacing="20" alignment="CENTER">
-            <Button text="Ajouter" onAction="#ajouterLivre" style="-fx-font-size: 16px;"/>
-            <Button text="Mettre à Jour" onAction="#mettreAJourLivre" style="-fx-font-size: 16px;"/>
-            <Button text="Supprimer" onAction="#supprimerLivre" style="-fx-font-size: 16px;"/>
+        <HBox alignment="CENTER" spacing="20">
+            <Button onAction="#ajouterLivre" style="-fx-font-size: 16px;" text="Ajouter" />
+            <Button onAction="#mettreAJourLivre" style="-fx-font-size: 16px;" text="Mettre à Jour" />
+            <Button onAction="#supprimerLivre" style="-fx-font-size: 16px;" text="Supprimer" />
         </HBox>
     </bottom>
 
