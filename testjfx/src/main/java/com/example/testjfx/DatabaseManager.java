@@ -41,7 +41,9 @@ public class DatabaseManager {
                     System.out.println("Quatrième de couverture: " + quatriemeDeCouverture);
                     System.out.println("--------------------");
 
+
                     // Créer un objet Livre et le stocker dans une liste ou une autre structure de données
+                    String imageCouverture = "";
                     Livre livre = new Livre(titre, isbn, auteur, annee, pages, quatriemeDeCouverture);
                     // Ajouter livre à votre liste observable
                     livres.add(livre);
@@ -68,6 +70,7 @@ public class DatabaseManager {
                     String quatriemeDeCouverture = resultSet.getString("quatrieme_de_couverture");
 
                     // Créer un objet Livre et le stocker dans une liste
+                    String imageCouverture = resultSet.getString("nombre_pages");
                     Livre livre = new Livre(titre, isbn, auteur, annee, pages, quatriemeDeCouverture);
                     livresFromDB.add(livre);
                 }
@@ -78,17 +81,62 @@ public class DatabaseManager {
         return livresFromDB;
     }
 
-    public static String supprimerLivre(Livre selectedLivre) {
-        return("Le livre " + selectedLivre + " à bien été supprimé");
+//    public static String supprimerLivre(Livre selectedLivre) {
+//        return("Le livre " + selectedLivre + " à bien été supprimé");
+//    }
+
+    public static String supprimerLivre(Livre livre) {
+        try (Connection connection = getConnection()) {
+            String query = "DELETE FROM Livres WHERE id = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                preparedStatement.setInt(1, livre.getId()); // Supposant que votre livre a un identifiant (id)
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public static void ajouterLivre(Livre selectedLivre) {
+
+    public static void ajouterLivre(Livre livre) {
+        try (Connection connection = getConnection()) {
+            String query = "INSERT INTO Livres (titre, isbn, auteur, annee_publication, nombre_pages, quatrieme_de_couverture) " +
+                    "VALUES (?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                preparedStatement.setString(1, livre.getTitre());
+                preparedStatement.setString(2, livre.getISBN());
+                preparedStatement.setString(3, livre.getAuteur());
+                preparedStatement.setInt(4, livre.getAnneePublication());
+                preparedStatement.setInt(5, livre.getNombrePages());
+                preparedStatement.setString(6, livre.getQuatriemeDeCouverture());
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
 
     }
 
-    public static void mettreAJourLivre(Livre selectedLivre) {
-
+    public static void mettreAJourLivre(Livre livre) {
+        try (Connection connection = getConnection()) {
+            String query = "UPDATE Livres SET titre = ?, isbn = ?, auteur = ?, annee_publication = ?, " +
+                    "nombre_pages = ?, quatrieme_de_couverture = ? WHERE id = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                preparedStatement.setString(1, livre.getTitre());
+                preparedStatement.setString(2, livre.getISBN());
+                preparedStatement.setString(3, livre.getAuteur());
+                preparedStatement.setInt(4, livre.getAnneePublication());
+                preparedStatement.setInt(5, livre.getNombrePages());
+                preparedStatement.setString(6, livre.getQuatriemeDeCouverture());
+                preparedStatement.setInt(7, livre.getId()); // Supposant que votre livre a un identifiant (id)
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 }

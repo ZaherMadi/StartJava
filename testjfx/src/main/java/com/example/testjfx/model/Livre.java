@@ -1,22 +1,27 @@
 package com.example.testjfx.model;
 
+import javafx.scene.image.Image;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Livre {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
     private String titre;
     private String ISBN;
     private String auteur;
     private int anneePublication;
     private int nombrePages;
     private String quatriemeDeCouverture;
-    private String imageCouverture;
+    private Image imageCouverture;
+    private String cheminImageCouverture;
+
 
     public Livre(String titre, String ISBN, String auteur, int anneePublication, int nombrePages, String quatriemeDeCouverture) {
         this.titre = titre;
@@ -25,18 +30,34 @@ public class Livre {
         this.anneePublication = anneePublication;
         this.nombrePages = nombrePages;
         this.quatriemeDeCouverture = quatriemeDeCouverture;
+//        this.imageCouverture = getImageCouverture();
     }
+
+
+
+    public String getCheminImageCouverture() {
+        return cheminImageCouverture;
+    }
+
+    public void setCheminImageCouverture(String cheminImageCouverture) {
+        this.cheminImageCouverture = cheminImageCouverture;
+    }
+
+    // Méthode pour charger l'image de couverture en tant qu'objet Image
+//    public Image getImageCouverture() {
+//
+//    }
 
     public Livre() {
     }
 
     // Getters/setters
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -82,18 +103,6 @@ public class Livre {
 
     public String getQuatriemeDeCouverture() {
         return quatriemeDeCouverture;
-    }
-
-    public void setQuatriemeDeCouverture(String quatriemeDeCouverture) {
-        this.quatriemeDeCouverture = quatriemeDeCouverture;
-    }
-
-    public String getImageCouverture() {
-        return imageCouverture;
-    }
-
-    public void setImageCouverture(String imageCouverture) {
-        this.imageCouverture = imageCouverture;
     }
 
     @Override

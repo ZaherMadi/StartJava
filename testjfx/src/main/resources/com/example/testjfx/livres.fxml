@@ -24,6 +24,7 @@
 
             <!-- Affichage des détails du livre -->
             <VBox alignment="CENTER" spacing="10">
+                <Label style="-fx-font-weight: bold;" text="Image :" />
                 <ImageView fx:id="imageView" fitHeight="300" fitWidth="200" />
                 <VBox spacing="5">
                     <Label style="-fx-font-weight: bold;" text="Titre :" />
