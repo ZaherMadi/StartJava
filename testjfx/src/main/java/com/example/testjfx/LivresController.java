@@ -81,5 +81,34 @@ public class LivresController {
     @FXML
     protected void supprimerLivre() {
         // Ajoutez le code pour supprimer un livre sélectionné de la liste et de la base de données
+        Livre selectedLivre = livresListView.getSelectionModel().getSelectedItem();
+        if (selectedLivre != null) {
+            // Demander confirmation à l'utilisateur avant de supprimer le livre
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation de suppression");
+            alert.setHeaderText("Voulez-vous vraiment supprimer ce livre ?");
+            alert.setContentText("Cette action est irréversible.");
+
+            // Attendre la réponse de l'utilisateur
+            ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
+
+            if (result == ButtonType.OK) {
+                // Supprimer le livre de la liste et de la base de données
+                livres.remove(selectedLivre);
+                String ConfirmationSupp = DatabaseManager.supprimerLivre(selectedLivre);
+                Alert alertConfirmation = new Alert(Alert.AlertType.ERROR);
+                alertConfirmation.setTitle("Effectué");
+                alertConfirmation.setHeaderText(null);
+                alertConfirmation.setContentText(ConfirmationSupp);
+                alertConfirmation.showAndWait();
+            }
+        } else {
+            // Afficher un message d'erreur si aucun livre n'est sélectionné
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de suppression");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez sélectionner un livre à supprimer.");
+            alert.showAndWait();
+        }
     }
 }

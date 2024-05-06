@@ -78,4 +78,17 @@ public class DatabaseManager {
         return livresFromDB;
     }
 
+    public static String supprimerLivre(Livre selectedLivre) {
+        return("Le livre " + selectedLivre + " à bien été supprimé");
+    }
+
+    public static void ajouterLivre(Livre selectedLivre) {
+
+
+
+    }
+
+    public static void mettreAJourLivre(Livre selectedLivre) {
+
+    }
 }
