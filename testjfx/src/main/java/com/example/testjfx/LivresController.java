@@ -29,7 +29,12 @@ public class LivresController {
     public void initialize() {
         livresListView.setItems(livres);
         livresListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showLivreDetails(newValue));
-        LivresExemples();
+        //LivresExemples();
+        getLivresFromDatabase(); // Appel de la méthode pour charger les livres depuis la base de données
+    }
+
+    private void getLivresFromDatabase() {
+        livres.addAll(DatabaseManager.getLivresFromDatabase());
     }
 
     private void showLivreDetails(Livre livre) {
